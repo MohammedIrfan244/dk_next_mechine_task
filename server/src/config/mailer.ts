@@ -89,6 +89,7 @@ export const infoMail = (data: InfoDataPayload) => ({
     "📩 Business Inquiry",
     `
       <p><span style="${labelStyles}">Name:</span> <span style="${valueStyles}">${data.name}</span></p>
+      <p><span style="${labelStyles}">Email:</span> <span style="${valueStyles}">${data.email}</span></p>
       <p><span style="${labelStyles}">Business:</span> <span style="${valueStyles}">${data.business}</span></p>
       <p><span style="${labelStyles}">Message:</span></p>
       <p style="${valueStyles}">${data.message}</p>
@@ -104,6 +105,7 @@ export const influencerMail = (data: InfluencerDataPayload) => ({
     "📢 Influencer Request",
     `
       <p><span style="${labelStyles}">Name:</span> <span style="${valueStyles}">${data.name}</span></p>
+      <p><span style="${labelStyles}">Email:</span> <span style="${valueStyles}">${data.email}</span></p>
       <p><span style="${labelStyles}">Business:</span> <span style="${valueStyles}">${data.business}</span></p>
       <p><span style="${labelStyles}">Average Budget:</span> <span style="${valueStyles}">₹${data.avgBudget.toLocaleString()}</span></p>
       <p><span style="${labelStyles}">Category:</span> <span style="${valueStyles}">${data.category}</span></p>
@@ -119,11 +121,13 @@ export const celebrityMail = (data: CelebrityDataPayload) => ({
     "🌟 Celebrity Booking",
     `
       <p><span style="${labelStyles}">Name:</span> <span style="${valueStyles}">${data.name}</span></p>
+      <p><span style="${labelStyles}">Email:</span> <span style="${valueStyles}">${data.email}</span></p>
       <p><span style="${labelStyles}">Business:</span> <span style="${valueStyles}">${data.business}</span></p>
       <p><span style="${labelStyles}">Event:</span> <span style="${valueStyles}">${data.event}</span></p>
       <p><span style="${labelStyles}">Budget:</span> <span style="${valueStyles}">₹${data.budget.toLocaleString()}</span></p>
     `
   ),
 });
+
 
 export default transporter;

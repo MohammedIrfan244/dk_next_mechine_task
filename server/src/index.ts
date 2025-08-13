@@ -1,23 +1,32 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import mailRoute from './router/mail';
+import notFound from './middleware/notFound';
+import errorHandler from './middleware/errorHandler';
+import { infoLogger } from './lib/helper';
 
 dotenv.config();
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin:process.env.CLIENT_URL,
+  credentials: true
+}));
+
 app.use(express.json());
 
-
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+app.get("/" , (req , res) => res.send("Hello from server"));
+app.use("/api/mail" , mailRoute)
 
 
-const PORT = process.env.PORT || 3000;
+app.use(notFound)
+app.use(errorHandler)
+
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  infoLogger(`Server is running on port ${PORT}`);
 });
 
 

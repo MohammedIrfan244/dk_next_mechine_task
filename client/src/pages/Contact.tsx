@@ -18,6 +18,7 @@ import type { CelebrityData, InfluencerData, InfoData } from "../lib/type";
 import { categories, events } from "../lib/data";
 import axios from "axios";
 import axiosError from "../lib/utils/axiosError";
+import { toast } from "react-toastify";
 
 export default function Contact() {
   const containerRef = useRef(null);
@@ -160,10 +161,10 @@ export default function Contact() {
       else if (target === "celebrity")
         await axios.post(import.meta.env.VITE_API_URL + "/mail/celebrity", celebrityData);
 
-      alert("✅ Mail sent successfully");
+      toast.success("✅ Mail sent successfully");
       resetForm();
     } catch (error) {
-      alert(axiosError(error) || "❌ Something went wrong");
+      toast.error(axiosError(error) || "❌ Something went wrong");
       console.error(error);
     } finally {
       setLoading(false);

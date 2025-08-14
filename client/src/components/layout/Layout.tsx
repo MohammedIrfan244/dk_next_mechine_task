@@ -1,11 +1,14 @@
-import Navbar from "./Navbar"
-import { useModal } from "../../hooks/useModal"
-import ContactModal from "../ui/ContactModal"
-import { useLenisScroll } from "../../hooks/useLenisHook"
+import Navbar from "./Navbar";
+import { useModal } from "../../hooks/useModal";
+import ContactModal from "../ui/ContactModal";
+import { useLenisScroll } from "../../hooks/useLenisHook";
+import { ToastContainer } from "react-toastify"; // <-- import
+import 'react-toastify/dist/ReactToastify.css';
 
 function Layout({ children }: { children: React.ReactNode }) {
-  const { isOpen, openModal, closeModal } = useModal()
-  useLenisScroll()
+  const { isOpen, openModal, closeModal } = useModal();
+  useLenisScroll();
+
   return (
     <>
       <Navbar />
@@ -18,11 +21,21 @@ function Layout({ children }: { children: React.ReactNode }) {
           CONNECT
         </span>
       </div>
-      {isOpen && (
-        <ContactModal isOpen={isOpen} closeModal={closeModal} />
-      )}
+      {isOpen && <ContactModal isOpen={isOpen} closeModal={closeModal} />}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </>
-  )
+  );
 }
 
-export default Layout
+export default Layout;

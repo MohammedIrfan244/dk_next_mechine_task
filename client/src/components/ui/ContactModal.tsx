@@ -1,8 +1,10 @@
 import React, { useState } from "react"
 import axiosError from "../../lib/utils/axiosError"
 import axios from "axios"
+import { categories } from "../../lib/data";
+import { toast } from "react-toastify";
 
-function ContactModal({ isOpen, closeModal }: { isOpen: boolean, closeModal: () => void }) {
+function ContactModal({ isOpen, closeModal }: { isOpen: boolean; closeModal: () => void }) {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -10,8 +12,9 @@ function ContactModal({ isOpen, closeModal }: { isOpen: boolean, closeModal: () 
         avgBudget: 0,
         category: "",
     })
+    const [loading, setLoading] = useState(false)
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target
         setFormData((prev) => ({
             ...prev,
@@ -21,13 +24,15 @@ function ContactModal({ isOpen, closeModal }: { isOpen: boolean, closeModal: () 
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+        setLoading(true)
         try {
             await axios.post(import.meta.env.VITE_API_URL + "/mail/influencer", formData)
-            alert("✅ Mail sent successfully");
+            toast.success("✅ Mail sent successfully")
         } catch (error) {
             console.log(axiosError(error))
-            alert(axiosError(error) || "❌ Something went wrong");
+            toast.error(axiosError(error) || "❌ Something went wrong")
         } finally {
+            setLoading(false)
             closeModal()
         }
     }
@@ -90,21 +95,33 @@ function ContactModal({ isOpen, closeModal }: { isOpen: boolean, closeModal: () 
                             className="w-full border-2 border-gray-600 bg-gray-800/50 text-white placeholder-gray-400 rounded-full px-4 py-3 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-400/20 transition-all duration-300"
                             required
                         />
-                        <input
-                            type="text"
+                        <select
                             name="category"
-                            placeholder="Category"
                             value={formData.category}
                             onChange={handleChange}
-                            className="w-full border-2 border-gray-600 bg-gray-800/50 text-white placeholder-gray-400 rounded-full px-4 py-3 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-400/20 transition-all duration-300"
+                            className="w-full border-2 border-gray-600 bg-gray-800/50 text-white rounded-full px-4 py-3 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-400/20 transition-all duration-300"
                             required
-                        />
+                        >
+                            <option value="" disabled>
+                                Select Category
+                            </option>
+                            {categories.map((cat) => (
+                                <option key={cat} value={cat}>
+                                    {cat}
+                                </option>
+                            ))}
+                        </select>
                         <button
                             type="submit"
                             onClick={handleSubmit}
-                            className="w-full bg-gradient-to-r from-yellow-400 to-violet-400 hover:from-yellow-500 hover:to-violet-500 text-black font-bold py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-violet-500/25"
+                            disabled={loading}
+                            className={`w-full ${
+                                loading
+                                    ? "bg-gray-500 cursor-not-allowed"
+                                    : "bg-gradient-to-r from-yellow-400 to-violet-400 hover:from-yellow-500 hover:to-violet-500"
+                            } text-black font-bold py-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-violet-500/25`}
                         >
-                            Submit
+                            {loading ? "Sending..." : "Submit"}
                         </button>
                     </div>
                 </div>

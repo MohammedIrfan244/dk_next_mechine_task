@@ -1,10 +1,13 @@
 import { FaCheckCircle, FaHandshake, FaInstagram, FaStar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+const targets: string[] = ['influencer', 'celebrity', 'expert'];
 
 function Home() {
   const navigate = useNavigate();
+  const [currentTarget, setCurrentTarget] = useState(0)
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -12,7 +15,20 @@ function Home() {
   });
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.1, 0.2, 1], [1, 0.8, 0.6, 0.4])
+  const scale = useTransform(scrollYProgress, [0, 0.1, 0.2, 1], [1, 0.8, 0.6, 0.4]);
+
+  const targetIndex = useTransform(scrollYProgress, [0, 0.03, 0.06, 1], [0, 1, 2, 0]);
+
+  useEffect(() => {
+    const unsubscribe = targetIndex.on("change", (latest) => {
+      const index = Math.round(latest)
+      if (index !== currentTarget && index >= 0 && index < targets.length) {
+        setCurrentTarget(index)
+      }
+    })
+    return () => unsubscribe()
+  }, [targetIndex, currentTarget])
+
   const fadeInUp = {
     initial: { opacity: 0, y: 30 },
     animate: { opacity: 1, y: 0 },
@@ -35,6 +51,7 @@ function Home() {
       }
     }
   };
+
   return (
     <div ref={containerRef} className="bg-black px-5 md:px-10 min-h-screen">
       <section className="text-white w-full flex flex-col md:flex-row">
@@ -47,14 +64,39 @@ function Home() {
             transition={{ delay: 0.1, duration: 0.3, ease: "easeOut" }}
             className="py-2 px-4 text-xs md:text-sm text-center rounded-full max-w-64 border border-violet-400/50 bg-gradient-to-r from-violet-900/20 to-blue-900/20 backdrop-blur-sm shadow-lg"
           >
-            Find your best choice with us
+            Find your best choice with <span className="bg-gradient-to-r from-blue-400 to-orange-400 bg-clip-text text-transparent font-bold">us</span>
           </motion.span>
           <motion.h1
             {...fadeInLeft}
             transition={{ delay: 0.2, duration: 0.3, ease: "easeOut" }}
             className="text-4xl font-bold text-center md:text-start leading-tight"
           >
-            Looking for an <span className="bg-gradient-to-r from-yellow-400 to-violet-400 bg-clip-text text-transparent">influencer</span> for your brand?
+            Looking for an{" "}
+            <motion.span
+              className="bg-gradient-to-r from-yellow-400 to-violet-400 bg-clip-text text-transparent inline-block"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{
+                y: 0,
+                opacity: 1,
+                transition: {
+                  duration: 0.4,
+                  ease: "easeOut"
+                }
+              }}
+              exit={
+                {
+                  y: -20,
+                  opacity: 0,
+                  transition: {
+                    duration: 0.3,
+                    ease: "easeIn"
+                  }
+                }
+              }
+            >
+              { targets[currentTarget] || targets[0] }
+            </motion.span>
+            {" "}for your brand?
           </motion.h1>
           <motion.h1
             {...fadeInLeft}

@@ -9,7 +9,6 @@ import {
   FaStar,
   FaPalette,
   FaGift,
-  FaDollarSign,
   FaEnvelope
 } from "react-icons/fa";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -175,7 +174,7 @@ export default function Contact() {
       setLoading(false);
     }
   };
-
+// number
   return (
     <div ref={containerRef} className="min-h-screen pt-32 bg-gradient-to-br from-black via-gray-900 to-[#1a1a1a] flex flex-col items-center p-6">
       <div className="max-w-2xl w-full">
@@ -377,7 +376,7 @@ export default function Contact() {
                     value={influencerData.avgBudget}
                     onChange={(e) => handleInfluencerChange("avgBudget", e.target.value)}
                     placeholder="e.g. 100000"
-                    className={`w-full px-4 py-3 rounded-full border-2 outline-none focus:ring-2 transition-all duration-300 ${config?.inputStyle}`}
+                    className={`w-full px-4 py-3 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-moz-appearance]:textfield rounded-full border-2 outline-none focus:ring-2 transition-all duration-300 ${config?.inputStyle}`}
                   />
                 </motion.div>
                 <motion.div
@@ -436,7 +435,7 @@ export default function Contact() {
                   transition={{ duration: 0.4, delay: 1.2 }}
                 >
                   <label className="flex items-center gap-2 font-semibold text-white mb-2">
-                    <FaDollarSign className="text-violet-400" /> Event Budget
+                    <FaMoneyBillWave className="text-violet-400" /> Event Budget
                   </label>
                   <motion.input
                     whileFocus={{ scale: 1.02, boxShadow: "0 0 20px rgba(139, 92, 246, 0.3)" }}
@@ -445,7 +444,7 @@ export default function Contact() {
                     value={celebrityData.budget}
                     onChange={(e) => handleCelebrityChange("budget", e.target.value)}
                     placeholder="e.g., 2000000"
-                    className={`w-full px-4 py-3 rounded-full border-2 outline-none focus:ring-2 transition-all duration-300 ${config?.inputStyle}`}
+                    className={`w-full px-4 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-moz-appearance]:textfield py-3 rounded-full border-2 outline-none focus:ring-2 transition-all duration-300 ${config?.inputStyle}`}
                   />
                 </motion.div>
               </>

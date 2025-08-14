@@ -87,7 +87,7 @@ function ContactModal({ isOpen, closeModal }: { isOpen: boolean; closeModal: () 
                             placeholder="Average Budget"
                             value={formData.avgBudget}
                             onChange={handleChange}
-                            className="w-full border-2 border-gray-600 bg-gray-800/50 text-white placeholder-gray-400 rounded-full px-4 py-3 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-400/20 transition-all duration-300"
+                            className="w-full border-2 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-moz-appearance]:textfield border-gray-600 bg-gray-800/50 text-white placeholder-gray-400 rounded-full px-4 py-3 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-400/20 transition-all duration-300"
                             required
                         />
                         <select

@@ -37,9 +37,9 @@ function Home() {
   };
   return (
     <div ref={containerRef} className="bg-black px-5 md:px-10 min-h-screen">
-      <section className="text-white w-full flex">
+      <section className="text-white w-full flex flex-col md:flex-row">
         <motion.div
-          className="w-1/2 flex flex-col gap-4 md:gap-8 h-screen justify-center"
+          className="w-full md:w-1/2 flex flex-col gap-4 md:gap-8 h-auto pb-20 pt-32 md:pb-0 md:pt-0 md:h-screen items-center md:items-start justify-center"
           style={{ y, opacity, scale }}
         >
           <motion.span
@@ -52,30 +52,30 @@ function Home() {
           <motion.h1
             {...fadeInLeft}
             transition={{ delay: 0.2, duration: 0.3, ease: "easeOut" }}
-            className="text-3xl md:text-4xl font-bold text-start leading-tight"
+            className="text-4xl font-bold text-center md:text-start leading-tight"
           >
             Looking for an <span className="bg-gradient-to-r from-yellow-400 to-violet-400 bg-clip-text text-transparent">influencer</span> for your brand?
           </motion.h1>
           <motion.h1
             {...fadeInLeft}
             transition={{ delay: 0.3, duration: 0.4, ease: "easeOut" }}
-            className="text-5xl md:text-7xl text-start shrikhand-regular bg-gradient-to-r from-violet-400 to-blue-400 bg-clip-text text-transparent drop-shadow-sm"
+            className="text-6xl md:text-7xl text-center md:text-start shrikhand-regular bg-gradient-to-r from-violet-400 to-blue-400 bg-clip-text text-transparent drop-shadow-sm"
           >
             We got you covered
           </motion.h1>
           <motion.button
             {...scaleIn}
-            transition={{ delay: 0.4, duration: 0.3, ease: "easeOut" }}
+            transition={{ delay: 0.1, duration: 0.3, ease: "easeOut" }}
             whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(139, 92, 246, 0.3)" }}
             whileTap={{ scale: 0.98 }}
             onClick={() => navigate("/contact")}
-            className="inline-flex items-center justify-center rounded-full border-2 border-violet-400/50 px-6 py-3 max-w-40 bg-gradient-to-r from-yellow-400 to-violet-400 hover:from-yellow-500 hover:to-violet-500 transition-all duration-300 shadow-lg hover:shadow-xl backdrop-blur-sm text-violet-900 font-semibold text-sm"
+            className="inline-flex cursor-pointer items-center justify-center rounded-full border-2 border-violet-400/50 px-6 py-3 w-full md:max-w-40 bg-gradient-to-r from-yellow-400 to-violet-400 hover:from-yellow-500 hover:to-violet-500 transition-all duration-300 shadow-lg hover:shadow-xl backdrop-blur-sm text-violet-900 font-semibold text-sm"
           >
             Connect now
           </motion.button>
         </motion.div>
         <motion.div
-          className="w-1/2 h-screen flex items-center justify-center gap-4"
+          className="w-full md:w-1/2 h-auto md:h-screen flex items-center justify-center gap-4"
           style={{ scale }}
         >
           <motion.div
@@ -87,7 +87,7 @@ function Home() {
               scale: 1.03,
               boxShadow: "0 25px 50px rgba(234, 179, 8, 0.4)"
             }}
-            className="w-40 h-60 md:w-60 md:h-80 bg-gradient-to-br from-yellow-400 to-yellow-600 overflow-hidden rounded-2xl border-2 border-violet-500 shadow-2xl hover:shadow-violet-500/25 transition-all duration-300"
+            className="w-60 h-80 bg-gradient-to-br from-yellow-400 to-yellow-600 overflow-hidden rounded-2xl border-2 border-violet-500 shadow-2xl hover:shadow-violet-500/25 transition-all duration-300"
           >
             <img
               src="https://i.pinimg.com/736x/fa/5a/f2/fa5af263137e8eedd86dbdc8409e73b5.jpg"
@@ -104,7 +104,7 @@ function Home() {
               scale: 1.03,
               boxShadow: "0 25px 50px rgba(139, 92, 246, 0.4)"
             }}
-            className="w-40 h-60 md:w-60 md:h-80 bg-gradient-to-br from-violet-400 to-violet-600 overflow-hidden rounded-2xl border-2 border-blue-500 shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
+            className="w-60 h-80 bg-gradient-to-br from-violet-400 to-violet-600 overflow-hidden rounded-2xl border-2 border-blue-500 shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
           >
             <img
               src="https://i.pinimg.com/736x/31/76/10/3176103faff222296ee09a59824e5f3a.jpg"

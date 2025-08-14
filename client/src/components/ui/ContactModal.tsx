@@ -13,7 +13,6 @@ function ContactModal({ isOpen, closeModal }: { isOpen: boolean; closeModal: () 
         category: "",
     })
     const [loading, setLoading] = useState(false)
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target
         setFormData((prev) => ({
@@ -21,13 +20,12 @@ function ContactModal({ isOpen, closeModal }: { isOpen: boolean; closeModal: () 
             [name]: name === "avgBudget" ? Number(value) : value,
         }))
     }
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setLoading(true)
         try {
-            await axios.post(import.meta.env.VITE_API_URL + "/mail/influencer", formData)
-            toast.success("✅ Mail sent successfully")
+            const res = await axios.post(import.meta.env.VITE_API_URL + "/mail/influencer", formData)
+            toast.success(res.data.message || "✅ Mail sent successfully")
         } catch (error) {
             console.log(axiosError(error))
             toast.error(axiosError(error) || "❌ Something went wrong")
@@ -36,9 +34,7 @@ function ContactModal({ isOpen, closeModal }: { isOpen: boolean; closeModal: () 
             closeModal()
         }
     }
-
     if (!isOpen) return null
-
     return (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-4">
             <div className="bg-gradient-to-br from-gray-900/95 to-black/95 border-2 border-violet-500/30 rounded-3xl p-8 w-full max-w-md shadow-2xl backdrop-blur-sm relative overflow-hidden">
@@ -57,7 +53,6 @@ function ContactModal({ isOpen, closeModal }: { isOpen: boolean; closeModal: () 
                             ✕
                         </button>
                     </div>
-
                     <div className="space-y-5">
                         <input
                             type="text"
@@ -99,7 +94,7 @@ function ContactModal({ isOpen, closeModal }: { isOpen: boolean; closeModal: () 
                             name="category"
                             value={formData.category}
                             onChange={handleChange}
-                            className="w-full border-2 border-gray-600 bg-gray-800/50 text-white rounded-full px-4 py-3 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-400/20 transition-all duration-300"
+                            className="w-full border-2 border-blue-900 bg-stone-800 text-white rounded-full px-4 py-3 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-400/20 transition-all duration-300"
                             required
                         >
                             <option value="" disabled>

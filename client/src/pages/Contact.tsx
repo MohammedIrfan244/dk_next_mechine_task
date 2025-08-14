@@ -154,14 +154,21 @@ export default function Contact() {
   const submitForm = async () => {
     setLoading(true);
     try {
-      if (target === "info")
-        await axios.post(import.meta.env.VITE_API_URL + "/mail/info", infoData);
-      else if (target === "influencer")
-        await axios.post(import.meta.env.VITE_API_URL + "/mail/influencer", influencerData);
-      else if (target === "celebrity")
-        await axios.post(import.meta.env.VITE_API_URL + "/mail/celebrity", celebrityData);
-
-      toast.success("✅ Mail sent successfully");
+      if (target === "info") {
+        const res = await axios.post(import.meta.env.VITE_API_URL + "/mail/info", infoData);
+        toast.success(res.data.message || "✅ Mail sent successfully")
+        return
+      }
+      else if (target === "influencer") {
+        const res = await axios.post(import.meta.env.VITE_API_URL + "/mail/influencer", influencerData);
+        toast.success(res.data.message || "✅ Mail sent successfully")
+        return
+      }
+      else if (target === "celebrity") {
+        const res = await axios.post(import.meta.env.VITE_API_URL + "/mail/celebrity", celebrityData);
+        toast.success(res.data.message || "✅ Mail sent successfully")
+        return
+      }
       resetForm();
     } catch (error) {
       toast.error(axiosError(error) || "❌ Something went wrong");
@@ -213,8 +220,8 @@ export default function Contact() {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setTarget(t)}
                 className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-full transition-all duration-300 font-semibold ${isActive
-                    ? `bg-gradient-to-r from-yellow-400 to-violet-400 text-black shadow-lg transform scale-105`
-                    : "text-gray-300 hover:bg-gray-700/50 hover:text-white"
+                  ? `bg-gradient-to-r from-yellow-400 to-violet-400 text-black shadow-lg transform scale-105`
+                  : "text-gray-300 hover:bg-gray-700/50 hover:text-white"
                   }`}
               >
                 {t === "info" && <FaInfoCircle />}

@@ -53,7 +53,7 @@ function ContactModal({ isOpen, closeModal }: { isOpen: boolean; closeModal: () 
                             ✕
                         </button>
                     </div>
-                    <div className="space-y-5">
+                    <form onSubmit={handleSubmit} className="space-y-5">
                         <input
                             type="text"
                             name="name"
@@ -108,7 +108,6 @@ function ContactModal({ isOpen, closeModal }: { isOpen: boolean; closeModal: () 
                         </select>
                         <button
                             type="submit"
-                            onClick={handleSubmit}
                             disabled={loading}
                             className={`w-full ${
                                 loading
@@ -118,7 +117,7 @@ function ContactModal({ isOpen, closeModal }: { isOpen: boolean; closeModal: () 
                         >
                             {loading ? "Sending..." : "Submit"}
                         </button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

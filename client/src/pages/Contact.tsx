@@ -151,23 +151,21 @@ export default function Contact() {
         ? influencerData
         : celebrityData;
 
-  const submitForm = async () => {
+  const submitForm = async (e: React.FormEvent) => {
+    e.preventDefault();
     setLoading(true);
     try {
       if (target === "info") {
         const res = await axios.post(import.meta.env.VITE_API_URL + "/mail/info", infoData);
         toast.success(res.data.message || "✅ Mail sent successfully")
-        return
       }
       else if (target === "influencer") {
         const res = await axios.post(import.meta.env.VITE_API_URL + "/mail/influencer", influencerData);
         toast.success(res.data.message || "✅ Mail sent successfully")
-        return
       }
       else if (target === "celebrity") {
         const res = await axios.post(import.meta.env.VITE_API_URL + "/mail/celebrity", celebrityData);
         toast.success(res.data.message || "✅ Mail sent successfully")
-        return
       }
       resetForm();
     } catch (error) {
@@ -274,7 +272,7 @@ export default function Contact() {
           viewport={{ once: true, margin: "-50px" }}
           className={`rounded-2xl p-8 border-2 ${config?.containerStyle}`}
         >
-          <div className="grid gap-6">
+          <form onSubmit={(e)=>submitForm(e)} className="grid gap-6">
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               animate={{ opacity: 1, x: 0 }}
@@ -351,6 +349,7 @@ export default function Contact() {
                   <FaComments className="text-violet-400" /> Your Message
                 </label>
                 <motion.textarea
+                  required
                   whileFocus={{ scale: 1.02, boxShadow: "0 0 20px rgba(139, 92, 246, 0.3)" }}
                   value={infoData.message}
                   onChange={(e) => handleInfoChange("message", e.target.value)}
@@ -390,6 +389,7 @@ export default function Contact() {
                     <FaPalette className="text-violet-400" /> Industry Category
                   </label>
                   <motion.select
+                    required
                     whileFocus={{ scale: 1.02, boxShadow: "0 0 20px rgba(139, 92, 246, 0.3)" }}
                     value={influencerData.category}
                     onChange={(e) => handleInfluencerChange("category", e.target.value)}
@@ -416,6 +416,7 @@ export default function Contact() {
                     <FaGift className="text-violet-400" /> Event Type
                   </label>
                   <motion.select
+                    required
                     whileFocus={{ scale: 1.02, boxShadow: "0 0 20px rgba(139, 92, 246, 0.3)" }}
                     value={celebrityData.event}
                     onChange={(e) => handleCelebrityChange("event", e.target.value)}
@@ -459,7 +460,6 @@ export default function Contact() {
                 y: -2
               }}
               whileTap={{ scale: 0.98 }}
-              onClick={submitForm}
               type="submit"
               disabled={loading}
               className={`w-full py-4 rounded-full font-bold text-black transition-all duration-300 transform shadow-lg bg-gradient-to-r ${config?.buttonGradient} ${loading ? "opacity-60 cursor-not-allowed" : "hover:shadow-violet-500/25"
@@ -473,7 +473,7 @@ export default function Contact() {
                     ? "Find My Influencer"
                     : "Book Celebrity"}
             </motion.button>
-          </div>
+          </form>
         </motion.div>
       </div>
     </div>

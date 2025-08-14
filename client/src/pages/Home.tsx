@@ -53,7 +53,7 @@ function Home() {
   };
 
   return (
-    <div ref={containerRef} className="bg-black px-5 md:px-10 min-h-screen">
+    <div ref={containerRef} className="bg-black px-5 md:px-10 min-h-screen overflow-x-hidden">
       <section className="text-white w-full flex flex-col md:flex-row">
         <motion.div
           className="w-full md:w-1/2 flex flex-col gap-4 md:gap-8 h-auto pb-20 pt-32 md:pb-0 md:pt-0 md:h-screen items-center md:items-start justify-center"
